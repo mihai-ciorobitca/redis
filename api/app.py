@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 def send_email():
     to = 'mihai.ciorobitca@networkstudio.store'
-    body = f'Email sent at: {datetime.now()}'
+    body = f'Email sent at: {datetime.utcnow()}'
     msg = MIMEText(body)
     msg['Subject'] = 'Scheduled Email'
     msg['From'] = EMAIL
@@ -52,8 +52,7 @@ def schedule_job():
         func=send_email,
         repeat=None,
         queue_name='default',
-        id='email_job',
-        use_local_timezone=False
+        id='email_job'
     )
     return jsonify({"message": f"Job scheduled with cron expression: {cron_expression}"})
 

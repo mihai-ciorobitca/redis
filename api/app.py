@@ -1,4 +1,3 @@
-"""
 from datetime import datetime
 from redis import Redis
 from rq_scheduler import Scheduler
@@ -52,17 +51,3 @@ def schedule_job():
 def cancel_job():
     scheduler.cancel('email_job')
     return jsonify({"message": "Job canceled"})
-
-"""
-
-from flask import Flask
-
-app = Flask(__name__)
-
-@app.route('/')
-def home():
-    return 'Hello, World!'
-
-@app.route('/about')
-def about():
-    return 'About'

@@ -37,6 +37,7 @@ def send_email():
             server.starttls()
             server.login(EMAIL, PASSWORD)
             server.sendmail(EMAIL, to, msg.as_string())
+            logger.info(f"Email sent to {to}")
         except Exception as e:
             logger.error(f"Failed to send email: {e}")
 
@@ -47,6 +48,7 @@ def index():
 @app.route('/schedule-job', methods=['POST'])
 def schedule_job():
     cron_expression = request.form['cron']
+    send_email()
     scheduler.cron(
         cron_expression,
         func=send_email,

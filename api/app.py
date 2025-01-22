@@ -52,8 +52,7 @@ def schedule_job():
         func=send_email,
         repeat=None,
         queue_name='default',
-        id='email_job',
-        default_utc=True
+        id='email_job'
     )
     return jsonify({"message": f"Job scheduled with cron expression: {cron_expression}"})
 

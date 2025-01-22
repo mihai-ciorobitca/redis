@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App with Redis Scheduler</title>
+</head>
+<body>
+    <h1>Welcome to the Flask app with Redis scheduler!</h1>
+    <form action="/schedule-job" method="post">
+        <label for="cron">Cron Expression:</label>
+        <input type="text" id="cron" name="cron" value="*/1 * * * *">
+        <button type="submit">Schedule Job</button>
+    </form>
+    <form action="/cancel-job" method="post">
+        <button type="submit">Cancel Job</button>
+    </form>
+</body>
+</html>

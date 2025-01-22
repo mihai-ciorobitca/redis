@@ -15,9 +15,8 @@ EMAIL = getenv('EMAIL')
 PASSWORD = getenv('PASSWORD')
 
 app = Flask(__name__)
-
-redis_conn = Redis.from_url(REDIS_URL)
-scheduler = Scheduler(connection=redis_conn)
+app.redis = Redis.from_url(REDIS_URL)
+scheduler = Scheduler(connection=app.redis)
 
 # Configure logging
 logging.basicConfig(level=logging.ERROR, 
@@ -48,7 +47,6 @@ def index():
 @app.route('/schedule-job', methods=['POST'])
 def schedule_job():
     cron_expression = request.form['cron']
-    send_email()
     scheduler.cron(
         cron_expression,
         func=send_email,

@@ -15,7 +15,7 @@ PASSWORD = getenv('PASSWORD')
 
 app = Flask(__name__)
 
-redis_conn = Redis.from_url('redis://localhost:6379')
+redis_conn = Redis.from_url(REDIS_URL)
 scheduler = Scheduler(connection=redis_conn)
 
 def send_email():

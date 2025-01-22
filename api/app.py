@@ -51,6 +51,3 @@ def schedule_job():
 def cancel_job():
     scheduler.cancel('email_job')
     return jsonify({"message": "Job canceled"})
-
-if __name__ == '__main__':
-    app.run(debug=True)

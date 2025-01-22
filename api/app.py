@@ -20,7 +20,7 @@ redis_conn = Redis.from_url(REDIS_URL)
 scheduler = Scheduler(connection=redis_conn)
 
 # Configure logging
-logging.basicConfig(filename='app.log', level=logging.ERROR, 
+logging.basicConfig(level=logging.ERROR, 
                     format='%(asctime)s %(levelname)s %(name)s %(message)s')
 logger = logging.getLogger(__name__)
 

@@ -6,6 +6,7 @@ from os import getenv
 from flask import Flask, request, jsonify, render_template
 import smtplib
 from email.mime.text import MIMEText
+import logging
 
 load_dotenv()
 
@@ -18,6 +19,11 @@ app = Flask(__name__)
 redis_conn = Redis.from_url(REDIS_URL)
 scheduler = Scheduler(connection=redis_conn)
 
+# Configure logging
+logging.basicConfig(filename='app.log', level=logging.ERROR, 
+                    format='%(asctime)s %(levelname)s %(name)s %(message)s')
+logger = logging.getLogger(__name__)
+
 def send_email():
     to = 'mihai.ciorobitca@networkstudio.store'
     body = f'Email sent at: {datetime.now()}'
@@ -26,10 +32,13 @@ def send_email():
     msg['From'] = EMAIL
     msg['To'] = to
 
-    with smtplib.SMTP('smtp.example.com', 587) as server:
-        server.starttls()
-        server.login(EMAIL, PASSWORD)
-        server.sendmail(EMAIL, to, msg.as_string())
+    with smtplib.SMTP('smtp.gmail.com', 587) as server:
+        try:
+            server.starttls()
+            server.login(EMAIL, PASSWORD)
+            server.sendmail(EMAIL, to, msg.as_string())
+        except Exception as e:
+            logger.error(f"Failed to send email: {e}")
 
 @app.route('/')
 def index():
